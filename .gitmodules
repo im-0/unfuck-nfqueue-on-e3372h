@@ -1,0 +1,3 @@
+[submodule "e3372h-vendor-src"]
+	path = e3372h-vendor-src
+	url = https://github.com/samm-git/e3372h-vendor-src
