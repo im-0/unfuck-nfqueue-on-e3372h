@@ -1,0 +1,39 @@
+#!/bin/sh -eu
+
+TELNET_PORT=23
+NCAT_COPY_PORT=12345
+CONNECT_TIMEOUT=5
+
+if [ $# -ne 3 ]; then
+    echo "USAGE: ${0} <source filename> <destination IP> <destination filename>"
+    exit 1
+fi
+
+src_fname="${1}"
+dst_ip="${2}"
+dst_fname="${3}"
+
+src_mode=$( stat -c "%a" "${src_fname}" )
+
+(
+    set -eu
+    trap "echo; echo exit" EXIT
+
+    printf "set -eu\n"
+
+    printf "busybox nc -w 4 -l -p %s >\"%s\" </dev/null\n" \
+        "${NCAT_COPY_PORT}" "${dst_fname}"
+    start_time=$( date "+%s" )
+    while true; do
+        ncat --wait 1 --no-shutdown \
+            "${dst_ip}" "${NCAT_COPY_PORT}" \
+            <"${src_fname}" 2>/dev/null && break
+        cur_time=$( date "+%s" )
+        if [ $(( $cur_time - $start_time )) -gt $CONNECT_TIMEOUT ]; then
+            echo "ERROR: Unable to connect via ncat" >&2
+            exit 1
+        fi
+    done
+
+    printf "chmod %s \"%s\"\n" $src_mode "${dst_fname}"
+) | ncat --wait 4 --no-shutdown "${dst_ip}" "${TELNET_PORT}"
