@@ -62,6 +62,7 @@ $(BUILD_DIR)/.kmod-build-done: $(BUILD_DIR)/kernel-build/.build-done ./src/*.c .
 		-C "$(BUILD_DIR)/kernel-build" \
 		$(COMMON_MAKE_OPTS) \
 		M="$(ROOT_DIR)/src"
+	$(CROSS_TOOLCHAIN)strip --strip-debug "./src/unfuck_nfqueue.ko"
 	touch "$(@)"
 
 .PHONY:
