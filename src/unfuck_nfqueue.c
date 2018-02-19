@@ -138,6 +138,12 @@ static void mark_already_fixed(struct unfuck_pointers *unfuck_pointers)
     }
 }
 
+#define SYM_ADD_POINTER(sym_name) { \
+        .name = #sym_name, \
+        .fn = add_pointer, \
+        .vec_ptr = unfuck_pointers.sym_name, \
+    }
+
 #define FOR_EACH(call) for (int i = 0; i < N_AF; ++i) { \
         call; \
     }
@@ -152,31 +158,16 @@ static int __init unfuck_nfqueue_start(void)
             .name = "nfqh",
             .fn = find_nfqh_cb,
             .vec_ptr = unfuck_pointers.nfqh,
-        }, {
-            .name = "ipq_flush",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipq_flush,
-        }, {
-            .name = "ipq_sysctl_header",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipq_sysctl_header,
-        }, {
-            .name = "ipq_dev_notifier",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipq_dev_notifier,
-        }, {
-            .name = "ipqnl",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipqnl,
-        }, {
-            .name = "ipqnl_mutex",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipqnl_mutex,
-        }, {
-            .name = "ipq_nl_notifier",
-            .fn = add_pointer,
-            .vec_ptr = unfuck_pointers.ipq_nl_notifier,
-        }, {0},
+        },
+
+        SYM_ADD_POINTER(ipq_flush),
+        SYM_ADD_POINTER(ipq_sysctl_header),
+        SYM_ADD_POINTER(ipq_dev_notifier),
+        SYM_ADD_POINTER(ipqnl),
+        SYM_ADD_POINTER(ipqnl_mutex),
+        SYM_ADD_POINTER(ipq_nl_notifier),
+
+        {0},
     };
 
     printk(KERN_INFO LPREFIX "trying to find required symbols...\n");
