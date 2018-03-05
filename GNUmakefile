@@ -33,6 +33,10 @@ build: $(BUILD_DIR)/.kmod-build-done
 clean: clean-kmod
 	rm -fr "$(BUILD_DIR)"
 
+.PHONY: copy-binaries
+copy-binary: build
+	cp "$(ROOT_DIR)/src/unfuck_nfqueue.ko" "$(ROOT_DIR)/binary/"
+
 $(BUILD_DIR)/.mkdir-done:
 	[ -e "$(BUILD_DIR)" ] && \
 		rm -fr "$(BUILD_DIR)" || \
