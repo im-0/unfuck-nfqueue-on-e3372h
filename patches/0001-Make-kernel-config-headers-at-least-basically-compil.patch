@@ -1,0 +1,53 @@
+From a290b48da380d40800ac02eb334e7e30c8995e97 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Mon, 5 Mar 2018 00:20:23 +0300
+Subject: [PATCH 1/2] Make kernel config & headers at least basically
+ compilable.
+
+---
+ vender/modem/system/android/android_4.2_r1/kernel/drivers/modem/Kconfig | 2 +-
+ .../system/android/android_4.2_r1/kernel/include/linux/netfilter/Kbuild | 2 --
+ .../android/android_4.2_r1/kernel/include/linux/netfilter_ipv4/Kbuild   | 2 --
+ 3 files changed, 1 insertion(+), 5 deletions(-)
+
+diff --git a/vender/modem/system/android/android_4.2_r1/kernel/drivers/modem/Kconfig b/vender/modem/system/android/android_4.2_r1/kernel/drivers/modem/Kconfig
+index 852fe9583..1a273382a 100755
+--- a/vender/modem/system/android/android_4.2_r1/kernel/drivers/modem/Kconfig
++++ b/vender/modem/system/android/android_4.2_r1/kernel/drivers/modem/Kconfig
+@@ -26,7 +26,7 @@ source "drivers/modem/ios/Kconfig"
+ source "drivers/modem/efuse/Kconfig"
+ source "drivers/modem/balong_oam_ps/Kconfig"
+ source "drivers/modem/reset/Kconfig"
+-source "drivers/modem/reset_hifi/Kconfig"
++#source "drivers/modem/reset_hifi/Kconfig"
+ source "drivers/modem/lowpower_mntn/Kconfig"
+ source "drivers/modem/temperature/Kconfig"
+ source "drivers/modem/dialup_hsuart/Kconfig"
+diff --git a/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter/Kbuild b/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter/Kbuild
+index 4c00812e5..d2a83603b 100755
+--- a/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter/Kbuild
++++ b/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter/Kbuild
+@@ -75,6 +75,4 @@ header-y += xt_tcpmss.h
+ header-y += xt_tcpudp.h
+ header-y += xt_time.h
+ header-y += xt_u32.h
+-/*BEGIN DTS2013061307804    s00201037 2013/07/03 added*/
+ header-y += xt_dns_flt.h
+-/*END DTS2013061307804    s00201037 2013/07/03 added*/
+\ No newline at end of file
+diff --git a/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter_ipv4/Kbuild b/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter_ipv4/Kbuild
+index 455c1e22e..f259bce58 100755
+--- a/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter_ipv4/Kbuild
++++ b/vender/modem/system/android/android_4.2_r1/kernel/include/linux/netfilter_ipv4/Kbuild
+@@ -10,7 +10,5 @@ header-y += ipt_addrtype.h
+ header-y += ipt_ah.h
+ header-y += ipt_ecn.h
+ header-y += ipt_ttl.h
+-/*BEGIN DTS2013061307804    s00201037 2013/07/03 added*/
+ header-y += ipt_TRIGGER.h
+ header-y += ipt_webstr.h
+-/*END DTS2013061307804    s00201037 2013/07/03 added*/
+\ No newline at end of file
+-- 
+2.14.3
+

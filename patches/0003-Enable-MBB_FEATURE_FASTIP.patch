@@ -1,0 +1,39 @@
+From e8385960ff6035b37113b3eaba6da8ab762b8553 Mon Sep 17 00:00:00 2001
+From: Ivan Mironov <mironov.ivan@gmail.com>
+Date: Mon, 5 Mar 2018 00:42:22 +0300
+Subject: [PATCH 3/3] Enable MBB_FEATURE_FASTIP.
+
+---
+ .../config/product/hi6921_v711_hilink/config/balong_product_config.mk   | 2 +-
+ vender/config/product/hi6921_v711_hilink/config/mbb_config.h            | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/vender/config/product/hi6921_v711_hilink/config/balong_product_config.mk b/vender/config/product/hi6921_v711_hilink/config/balong_product_config.mk
+index 940605570..460e72d23 100755
+--- a/vender/config/product/hi6921_v711_hilink/config/balong_product_config.mk
++++ b/vender/config/product/hi6921_v711_hilink/config/balong_product_config.mk
+@@ -456,7 +456,7 @@ MBB_DLOAD    :=    FEATURE_ON
+ MBB_LED    :=    FEATURE_ON
+ MBB_LCD    :=    FEATURE_OFF
+ MBB_FEATURE_32K_CLK_SRC    :=    FEATURE_ON
+-MBB_FEATURE_FASTIP    :=    FEATURE_OFF
++MBB_FEATURE_FASTIP    :=    FEATURE_ON
+ MBB_ANTENNA    :=    FEATURE_OFF
+ MBB_SLIC    :=    FEATURE_OFF
+ MBB_FEATURE_ETH    :=    FEATURE_OFF
+diff --git a/vender/config/product/hi6921_v711_hilink/config/mbb_config.h b/vender/config/product/hi6921_v711_hilink/config/mbb_config.h
+index c7558e7a5..a3d565b78 100755
+--- a/vender/config/product/hi6921_v711_hilink/config/mbb_config.h
++++ b/vender/config/product/hi6921_v711_hilink/config/mbb_config.h
+@@ -67,7 +67,7 @@ extern "C"
+ #define    MBB_LCD                      FEATURE_OFF      /* 一级宏 :LCD*/
+ #define    MBB_OLED                     FEATURE_OFF      /* 一级宏 :0.96 OLED*/
+ #define    MBB_FEATURE_32K_CLK_SRC      FEATURE_ON      /* 一级宏：32K时钟源分频 */
+-#define    MBB_FEATURE_FASTIP           FEATURE_OFF     /* 一级宏：FastIP */
++#define    MBB_FEATURE_FASTIP           FEATURE_ON      /* 一级宏：FastIP */
+ #define    MBB_ANTENNA                  FEATURE_OFF     /* 一级宏：天线切换 */
+ #define    MBB_SLIC	                    FEATURE_OFF     /* 一级宏：定义slic驱动一级宏 */
+ #define    MBB_FEATURE_ETH		      	FEATURE_OFF     /* 一级宏：ethernet */
+-- 
+2.14.3
+
