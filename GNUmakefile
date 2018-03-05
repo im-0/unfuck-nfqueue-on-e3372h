@@ -63,7 +63,7 @@ COMMON_MAKE_OPTS := KERNELRELEASE="3.4.5" \
 	OBB_PRODUCT_NAME=$(VENDOR_PRODUCT_NAME) \
 	CFG_PLATFORM=$(SOC)
 
-$(BUILD_DIR)/kernel-build/.build-done: $(VENDOR_COPY_DIR)/.copy-done
+$(BUILD_DIR)/kernel-build/.build-done: $(VENDOR_COPY_DIR)/.copy-done $(KERNEL_CONFIG)
 	[ -e "$(BUILD_DIR)/kernel-build" ] && \
 		rm -fr "$(BUILD_DIR)/kernel-build" || \
 		true
@@ -71,10 +71,15 @@ $(BUILD_DIR)/kernel-build/.build-done: $(VENDOR_COPY_DIR)/.copy-done
 
 	cp "$(KERNEL_CONFIG)" "$(BUILD_DIR)/kernel-build/.config"
 
+	cd "$(VENDOR_COPY_KERNEL_DIR)" && yes "n" | $(MAKE) -j1 \
+		$(COMMON_MAKE_OPTS) \
+		O="$(BUILD_DIR)/kernel-build" \
+		oldconfig
+
 	cd "$(VENDOR_COPY_KERNEL_DIR)" && $(MAKE) \
 		$(COMMON_MAKE_OPTS) \
 		O="$(BUILD_DIR)/kernel-build" \
-		silentoldconfig prepare headers_install scripts
+		prepare headers_install scripts
 
 	touch "$(@)"
 
