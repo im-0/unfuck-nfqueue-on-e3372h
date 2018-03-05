@@ -6,8 +6,9 @@ git:
     true
 
 before_install:
+  - sudo dpkg --add-architecture i386
   - sudo apt-get -qq update
-  - sudo apt-get install -y gcc-arm-linux-gnueabi
+  - sudo apt-get install -y libc6:i386 zlib1g:i386
 
 script:
-  - make CROSS_TOOLCHAIN=arm-linux-gnueabi- build
+  - make build
